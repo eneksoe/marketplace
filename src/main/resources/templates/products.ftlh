@@ -15,17 +15,20 @@
     <div>
         <p><b>${product.name}</b> ${product.price} eur <a href="/product/${product.id}">More...</a></p>
     </div>
-    <#else>
+<#else>
     <h3>No product</h3>
 </#list>
 <hr>
 <h3>Create new product</h3>
-<form action="/product/create" method="post">
-    Product name: <input type="text" , name="name"/><br><br>
+<form action="/product/create" method="post" enctype="multipart/form-data">
+    Product name: <input type="text" name="name"/><br><br>
     Product description: <input type="text" , name="description"/><br><br>
-    Product price: <input type="text" , name="price"/><br><br>
-    City: <input type="text" , name="city"/><br><br>
-    Seller: <input type="text" , name="seller"/><br><br>
+    Product price: <input type="text" name="price"/><br><br>
+    City: <input type="text" name="city"/><br><br>
+    Seller: <input type="text" name="seller"/><br><br>
+    First photo: <input type="file" name="file1"/><br><br>
+    Second photo: <input type="file" name="file2"/><br><br>
+    Third photo: <input type="file" name="file3"/><br><br>
     <input type="submit" value="add"/>
 </form>
 </body>
