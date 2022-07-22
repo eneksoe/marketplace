@@ -2,14 +2,20 @@ package com.example.marketplace.model;
 
 import lombok.*;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     private String name;
+    @Column(columnDefinition = "text")
     private String description;
     private int price;
     private String city;

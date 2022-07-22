@@ -7,10 +7,16 @@
 <h1>MARKETPLACE</h1>
 <hr>
 <h4>Simple to bay, simple to sell</h4>
+<form action="/" method="get">
+    Search by product name: <input type="text" name="name"><br>
+    <input type="submit" value="Search"/>
+</form>
 <#list products as product>
     <div>
         <p><b>${product.name}</b> ${product.price} eur <a href="/product/${product.id}">More...</a></p>
     </div>
+    <#else>
+    <h3>No product</h3>
 </#list>
 <hr>
 <h3>Create new product</h3>
