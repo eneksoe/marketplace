@@ -1,10 +1,12 @@
-package com.example.marketplace.service;
+package com.example.marketplace.service.impl;
 
 import com.example.marketplace.model.Image;
 import com.example.marketplace.model.Product;
 import com.example.marketplace.repository.ProductRepository;
+import com.example.marketplace.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
     private final ProductRepository productRepository;
 
     public List<Product> getAll(String name) {

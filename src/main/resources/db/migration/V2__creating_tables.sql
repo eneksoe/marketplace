@@ -32,11 +32,19 @@ create table if not exists users
     phone_number    varchar,
     name            varchar,
     active          boolean,
-    avatar_image_id          int,
+    user_image_id          int,
     constraint fk_images
-      foreign key (avatar_image_id)
+      foreign key (user_image_id)
         references images (id),
     password        varchar,
-    role            varchar,
     date_of_created timestamp
 );
+
+create table if not exists user_role
+(
+user_id bigint,
+constraint fk_users
+foreign key (user_id)
+references users (id),
+roles varchar
+)

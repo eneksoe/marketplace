@@ -3,6 +3,7 @@ package com.example.marketplace.controller;
 import com.example.marketplace.model.Image;
 import com.example.marketplace.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import java.io.ByteArrayInputStream;
 @RestController
 @RequiredArgsConstructor
 public class ImageController {
+
+    @Autowired
     private final ImageRepository imageRepository;
 
     @GetMapping("/images/{id}")
-    private ResponseEntity<?> getImageById(@PathVariable Long id){
+    private ResponseEntity<?> getImageById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElse(null);
         return ResponseEntity.ok()
                 .header("fileName", image.getOriginalFileName())
@@ -26,5 +29,4 @@ public class ImageController {
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
-
 }

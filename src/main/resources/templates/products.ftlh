@@ -4,8 +4,11 @@
     <title>MarketPlace</title>
 </head>
 <body>
-<h1>MARKETPLACE</h1>
-<hr>
+<h1>MARKETPLACE | <a href="/login">SingIn</a></h1><hr>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="LogOut">
+</form>
 <h4>Simple to bay, simple to sell</h4>
 <form action="/" method="get">
     Search by product name: <input type="text" name="name"><br>

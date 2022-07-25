@@ -1,10 +1,12 @@
 spring:
+  freemarker:
+    expose-request-attributes: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/marketplace
+    url: jdbc:postgresql://localhost:49153/postgres
     username: postgres
-    password: 1234
+    password: postgrespw
     jpa:
       hibernate.ddl-auto: update
-      show-sql: true
+      show-sql: admin
 server:
   port : 8081
