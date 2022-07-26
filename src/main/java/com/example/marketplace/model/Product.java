@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.REFRESH;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -28,7 +30,9 @@ public class Product {
     private String description;
     private int price;
     private String city;
-    private String seller;
+    @ManyToOne(cascade = REFRESH, fetch = LAZY)
+    @JoinColumn()
+    private User user;
 
     @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "product")
     private List<Image> images = new ArrayList<>();

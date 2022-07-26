@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
@@ -38,6 +36,8 @@ public class User implements UserDetails {
     @Enumerated(STRING)
     private Set<Role> roles = new HashSet<>();
     private LocalDateTime dateOfCreated;
+    @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "user")
+    private List<Product> products = new ArrayList<>();
 
     @PrePersist
     private void init() {

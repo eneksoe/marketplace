@@ -5,7 +5,6 @@ create table if not exists products
     description         varchar(10000) not null,
     price               int            not null,
     city                varchar(50)    not null,
-    seller              varchar(50)    not null,
     preview_image_id    int,
     date_of_created      timestamp
 );
