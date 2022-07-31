@@ -2,6 +2,7 @@ package com.example.marketplace.controller;
 
 
 import com.example.marketplace.model.Product;
+import com.example.marketplace.model.User;
 import com.example.marketplace.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,10 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/")
-    public String products(@RequestParam(name = "name", required = false) String name, Principal principal, Model model) {
+    public String products(@RequestParam(name = "searchWord", required = false) String name, Principal principal, Model model) {
         model.addAttribute("products", productService.getAll(name));
         model.addAttribute("user", productService.getUserByPrincipal(principal));
+        model.addAttribute("searchWord", name);
         return "products";
     }
 
@@ -45,10 +47,20 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public String productInfo(@PathVariable Long id, Model model) {
+    public String productInfo(@PathVariable Long id, Model model, Principal principal) {
         Product product = productService.getProductById(id);
+        model.addAttribute("user", productService.getUserByPrincipal(principal));
         model.addAttribute("product", product);
         model.addAttribute("images", product.getImages());
+        model.addAttribute("productSeller", product.getUser());
         return "product-info";
+    }
+
+    @GetMapping("/my/products")
+    public String userProducts(Principal principal, Model model) {
+        User user = productService.getUserByPrincipal(principal);
+        model.addAttribute("user", user);
+        model.addAttribute("products", user.getProducts());
+        return "my-products";
     }
 }

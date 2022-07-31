@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -77,5 +78,11 @@ public class UserServiceImpl implements UserService {
             }
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByPrincipal(Principal principal) {
+        if(principal == null) return new User();
+return userRepository.findByEmail(principal.getName());
     }
 }

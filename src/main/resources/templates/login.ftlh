@@ -1,17 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MARKETPLACE</title>
-</head>
-<body>
-<h1>MARKETPLACE</h1><hr>
-<h4>SingIn</h4>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+<h1 style="text-align: center">SingIn</h1>
+<hr>
 <form action="/login" method="post">
-    Email: <input type="email" name="username"><br><br>
-    Password: <input type="password" name="password"><br><br>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control <#if RequestParameters.error??>is-invalid</#if>" id="email" name="username">
+        <div id="email" class="invalid-feedback">
+            Incorrect email
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control <#if RequestParameters.error??>is-invalid</#if>" id="password" name="password">
+        <div id="password" class="invalid-feedback">
+            Incorrect password
+        </div>
+    </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Enter"/>
+    <button type="submit" style="width: 100%" class="btn btn-dark">SingIn</button>
 </form>
-<a href="/registration">SingUp</a>
-</body>
-</html>
+    <hr>
+    <h2>No account on MARKETPLACE? <a href="/registration">SingUp!</a></h2>
+</@t.template>

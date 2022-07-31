@@ -1,49 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MarketPlace</title>
-</head>
-<body>
-<h1>MARKETPLACE</h1><hr>
-<#if user.email??>
-    <h3>User Name: <i>${user.name}</i></h3>
-    <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="LogOut">
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+    <h1 style="text-align: center">Search product</h1><hr>
+    <form method="get" action="/">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="searchCity">City</label>
+                <select id="searchCity" class="form-control">
+                    <option value="">City not selected</option>
+                    <option value="Tallinn">Tallinn</option>
+                    <option value="Tartu">Tartu</option>
+                    <option value="Narva">Narva</option>
+                </select>
+            </div>
+            <div class="form-group col-md-10">
+                <label for="searchWord">Search</label>
+                <input type="text" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
+                       id="searchWord">
+            </div>
+            <button style="width: 100%" type="submit" class="btn btn-dark">Search</button>
+        </div>
     </form>
-    <#if user.isAdmin()>
-        <a href="/admin">Admin Panel</a>
-        </#if>
-<#else>
-    <a href="/login">SingIn</a></h1>
-</#if>
-<hr>
-<h4>Simple to bay, simple to sell</h4>
-<form action="/" method="get">
-    Search by product name: <input type="text" name="name">
-    <input type="submit" value="Search"/>
-</form>
-<#list products as product>
-    <div>
-        <p><b>${product.name}</b> ${product.price} eur <a href="/product/${product.id}">More...</a></p>
-    </div>
-<#else>
-    <h3>No product</h3>
-</#list>
-<#if user.email??>
     <hr>
-    <h3>Create new product</h3>
-    <form action="/product/create" method="post" enctype="multipart/form-data">
-        Product name: <input type="text" name="name"/><br><br>
-        Product description: <input type="text" , name="description"/><br><br>
-        Product price: <input type="text" name="price"/><br><br>
-        City: <input type="text" name="city"/><br><br>
-        First photo: <input type="file" name="file1"/><br><br>
-        Second photo: <input type="file" name="file2"/><br><br>
-        Third photo: <input type="file" name="file3"/><br><br>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="add"/>
-    </form>
-</#if>
-</body>
-</html>
+    <div class="card-columns">
+        <#list products as product>
+            <a href="/product/${product.id}" class="product-link">
+                <div class="card text-white bg-dark my-3 product">
+
+                    <img src="/images/${product.previewImageId}"
+                         class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.price} €</p>
+                    </div>
+                    <div class="card-footer">
+                        ${product.city}
+                    </div>
+                </div>
+            </a>
+        <#else>
+            <h1 style="text-align: center">Не найдено</h1>
+        </#list>
+    </div>
+</@t.template>
